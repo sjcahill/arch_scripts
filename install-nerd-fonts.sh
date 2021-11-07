@@ -6,12 +6,17 @@
 # Fonts will be placed in the /usr/share/fonts directory
 # Script must therefore be executed as root
 
-echo "Executing script ${0}"
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+echo "${BLUE}Executing script ${0}${NC}"
 
 # Sparse clone of the NerdFont github repository
 git clone --filter=blob:none --sparse https://github.com/ryanoasis/nerd-fonts.git
 
-echo "Adding patched fonts to our cloned sparse repo"
+echo "{${BLUE}Adding patched fonts to our cloned sparse repo${NC}"
 
 # Adding the fonts we want to our sparse repo
 $(cd nerd-fonts && git sparse-checkout add patched-fonts/CodeNewRoman)
@@ -21,7 +26,7 @@ $(cd nerd-fonts && git sparse-checkout add patched-fonts/JetBrainsMono)
 $(cd nerd-fonts && git sparse-checkout add patched-fonts/Mononoki)
 $(cd nerd-fonts && git sparse-checkout add patched-fonts/Noto)
 
-echo 'Successfully added the patched fonts to our sparse cloned repo'
+echo '${GREEN}Successfully added the patched fonts to our sparse cloned repo${NC}'
 
 # Location to ultimately store our fonts on system - works with fontconfig
 FONTDIR="/usr/share/fonts"
@@ -60,7 +65,7 @@ do
 
 	if [[ $? -eq 0 ]]
 	then 
-		echo "Succesfully installed font: ${font}"
+		echo "${GREEN}Succesfully installed font: ${font}${GREEN}"
 	fi
 	
 	if [[ ! -d $FONTDIR/$font ]]
@@ -73,6 +78,6 @@ do
 
 done
 
-echo "Completed installing all wanted fonts: "${fonts[@]}"
+echo "${BLUE}Completed installing all wanted fonts: "${fonts[@]}${NC}"
 
 exit
