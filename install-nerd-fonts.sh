@@ -78,6 +78,5 @@ do
 
 done
 
-echo "${BLUE}Completed installing all wanted fonts: "${fonts[@]}${NC}"
+echo "${BLUE}Completed installing all wanted fonts: ${fonts[@]}${NC}"
 
-exit
