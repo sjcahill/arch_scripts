@@ -16,7 +16,7 @@ echo "${BLUE}Executing script ${0}${NC}"
 # Sparse clone of the NerdFont github repository
 git clone --filter=blob:none --sparse https://github.com/ryanoasis/nerd-fonts.git
 
-echo "{${BLUE}Adding patched fonts to our cloned sparse repo${NC}"
+echo "${BLUE}Adding patched fonts to our cloned sparse repo${NC}"
 
 # Adding the fonts we want to our sparse repo
 $(cd nerd-fonts && git sparse-checkout add patched-fonts/CodeNewRoman)
@@ -65,7 +65,7 @@ do
 
 	if [[ $? -eq 0 ]]
 	then 
-		echo "${GREEN}Succesfully installed font: ${font}${GREEN}"
+		echo "${GREEN}Succesfully installed font: ${font}${NC}"
 	fi
 	
 	if [[ ! -d $FONTDIR/$font ]]
