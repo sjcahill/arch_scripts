@@ -26,7 +26,7 @@ $(cd nerd-fonts && git sparse-checkout add patched-fonts/JetBrainsMono)
 $(cd nerd-fonts && git sparse-checkout add patched-fonts/Mononoki)
 $(cd nerd-fonts && git sparse-checkout add patched-fonts/Noto)
 
-echo '${GREEN}Successfully added the patched fonts to our sparse cloned repo${NC}'
+echo "${GREEN}Successfully added the patched fonts to our sparse cloned repo${NC}"
 
 # Location to ultimately store our fonts on system - works with fontconfig
 FONTDIR="/usr/share/fonts"
