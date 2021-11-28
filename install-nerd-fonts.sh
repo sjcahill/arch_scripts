@@ -1,82 +1,87 @@
 #!/bin/bash
 
-# Script to install some popular fonts from Nerd-Fonts
-# Repo located at https://github.com/ryanoasis/nerd-fonts
+# script to install some popular fonts from nerd-fonts
+# repo located at https://github.com/ryanoasis/nerd-fonts
 
-# Fonts will be placed in the /usr/share/fonts directory
-# Script must therefore be executed as root
+# fonts will be placed in the /usr/share/fonts directory
+# script must therefore be executed as root
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-NC='\033[0m'
+red='\033[0;31m'
+green='\033[0;32m'
+blue='\033[0;34m'
+nc='\033[0m'
 
-echo "${BLUE}Executing script ${0}${NC}"
+echo -e "${blue} executing script ${0} ${nc}"
 
-# Sparse clone of the NerdFont github repository
+# sparse clone of the nerdfont github repository
 git clone --filter=blob:none --sparse https://github.com/ryanoasis/nerd-fonts.git
 
-echo "${BLUE}Adding patched fonts to our cloned sparse repo${NC}"
+echo -e "${blue}adding patched fonts to our cloned sparse repo${nc}"
 
-# Adding the fonts we want to our sparse repo
-$(cd nerd-fonts && git sparse-checkout add patched-fonts/CodeNewRoman)
-$(cd nerd-fonts && git sparse-checkout add patched-fonts/DejaVuSansMono)
-$(cd nerd-fonts && git sparse-checkout add patched-fonts/Hack)
-$(cd nerd-fonts && git sparse-checkout add patched-fonts/JetBrainsMono)
-$(cd nerd-fonts && git sparse-checkout add patched-fonts/Mononoki)
-$(cd nerd-fonts && git sparse-checkout add patched-fonts/Noto)
+# adding the fonts we want to our sparse repo
+$(cd nerd-fonts && git sparse-checkout add patched-fonts/codenewroman)
+$(cd nerd-fonts && git sparse-checkout add patched-fonts/dejavusansmono)
+$(cd nerd-fonts && git sparse-checkout add patched-fonts/hack)
+$(cd nerd-fonts && git sparse-checkout add patched-fonts/jetbrainsmono)
+$(cd nerd-fonts && git sparse-checkout add patched-fonts/mononoki)
+$(cd nerd-fonts && git sparse-checkout add patched-fonts/noto)
 
-echo "${GREEN}Successfully added the patched fonts to our sparse cloned repo${NC}"
+echo -e "${green}successfully added the patched fonts to our sparse cloned repo${nc}"
 
-# Location to ultimately store our fonts on system - works with fontconfig
-FONTDIR="/usr/share/fonts"
+# location to ultimately store our fonts on system - works with fontconfig
+fontdir="/usr/share/fonts"
 
 fonts=(
-  "CodeNewRoman"
-  "DejaVuSansMono"
-  "Hack"
-  "JetBrainsMono"
-  "Mononoki"
-  "Noto"
+  "codenewroman"
+  "dejavusansmono"
+  "hack"
+  "jetbrainsmono"
+  "mononoki"
+  "noto"
 )
 
 
-# Create our font directory if DNE
-if [[ ! -d "${FONTDIR}" ]]
+# create our font directory if dne
+if [[ ! -d "${fontdir}" ]]
 then
-	mkdir -p "${FONTDIR}"
+	mkdir -p "${fontdir}"
 fi
 
-# Iterate through fonts and install using repo install script
-# Script dumps all fonts into same location so we need to move them
+# iterate through fonts and install using repo install script
+# script dumps all fonts into same location so we need to move them
 # and clean folder for each font for better organization
 for font in "${fonts[@]}"
 do
 
-	default="$HOME/.local/share/fonts"
+	default="$home/.local/share/fonts"
 
 	if [[ ! -d $default ]]
-	then 
+	then
 		mkdir -p $default
 	fi
 
-	# Will install fonts to $HOME/.local/share/fonts by default
+	# will install fonts to $home/.local/share/fonts by default
 	./nerd-fonts/install.sh "${font}"
 
 	if [[ $? -eq 0 ]]
-	then 
-		echo "${GREEN}Succesfully installed font: ${font}${NC}"
-	fi
-	
-	if [[ ! -d $FONTDIR/$font ]]
-	then 
-		mkdir ${FONTDIR}/${font}
+	then
+		echo -e "${green}succesfully installed font: ${font}${nc}"
 	fi
 
-	$(mv "${default}/NerdFonts"/* ${FONTDIR}/${font}/)
-	$(rm -rf "${default}/NerdFonts")
+	if [[ ! -d $fontdir/$font ]]
+	then
+		mkdir ${fontdir}/${font}
+	fi
+
+	$(mv "${default}/nerdfonts"/* ${fontdir}/${font}/)
+	$(rm -rf "${default}/nerdfonts")
 
 done
 
-echo "${BLUE}Completed installing all wanted fonts: ${fonts[@]}${NC}"
+if [[ -d "nerd-fonts" ]]
+then
+  $(rm -rf nerd-fonts)
+fi
+
+echo -e "${BLUE}Completed installing all wanted fonts: ${fonts[@]}${NC}"
 
