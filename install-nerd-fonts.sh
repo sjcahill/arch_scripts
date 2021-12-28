@@ -14,17 +14,17 @@ nc='\033[0m'
 echo -e "${blue} executing script ${0} ${nc}"
 
 # sparse clone of the nerdfont github repository
-git clone --filter=blob:none --sparse https://github.com/ryanoasis/nerd-fonts.git
+git clone --filter=blob:none --sparse https://github.com/ryanoasis/nerd-fonts
 
 echo -e "${blue}adding patched fonts to our cloned sparse repo${nc}"
 
 # adding the fonts we want to our sparse repo
-$(cd nerd-fonts && git sparse-checkout add patched-fonts/codenewroman)
-$(cd nerd-fonts && git sparse-checkout add patched-fonts/dejavusansmono)
-$(cd nerd-fonts && git sparse-checkout add patched-fonts/hack)
-$(cd nerd-fonts && git sparse-checkout add patched-fonts/jetbrainsmono)
-$(cd nerd-fonts && git sparse-checkout add patched-fonts/mononoki)
-$(cd nerd-fonts && git sparse-checkout add patched-fonts/noto)
+$(cd nerd-fonts && git sparse-checkout add patched-fonts/CodeNewRoman)
+$(cd nerd-fonts && git sparse-checkout add patched-fonts/DejaVuSansMono)
+$(cd nerd-fonts && git sparse-checkout add patched-fonts/Hack)
+$(cd nerd-fonts && git sparse-checkout add patched-fonts/JetBrainsMono)
+$(cd nerd-fonts && git sparse-checkout add patched-fonts/Mononoki)
+$(cd nerd-fonts && git sparse-checkout add patched-fonts/Noto)
 
 echo -e "${green}successfully added the patched fonts to our sparse cloned repo${nc}"
 
@@ -32,12 +32,12 @@ echo -e "${green}successfully added the patched fonts to our sparse cloned repo$
 fontdir="/usr/share/fonts"
 
 fonts=(
-  "codenewroman"
-  "dejavusansmono"
-  "hack"
-  "jetbrainsmono"
-  "mononoki"
-  "noto"
+  "CodeNewRoman"
+  "DejaVuSansMono"
+  "Hack"
+  "JetBrainsMono"
+  "Mononoki"
+  "Noto"
 )
 
 
@@ -53,11 +53,11 @@ fi
 for font in "${fonts[@]}"
 do
 
-	default="$home/.local/share/fonts"
+	default="${HOME}/.local/share/fonts"
 
-	if [[ ! -d $default ]]
+	if [[ ! -d ${default} ]]
 	then
-		mkdir -p $default
+		mkdir -p ${default}
 	fi
 
 	# will install fonts to $home/.local/share/fonts by default
@@ -68,13 +68,13 @@ do
 		echo -e "${green}succesfully installed font: ${font}${nc}"
 	fi
 
-	if [[ ! -d $fontdir/$font ]]
+	if [[ ! -d ${fontdir}/${font} ]]
 	then
 		mkdir ${fontdir}/${font}
 	fi
 
-	$(mv "${default}/nerdfonts"/* ${fontdir}/${font}/)
-	$(rm -rf "${default}/nerdfonts")
+	$(mv "${default}/NerdFonts"/* ${fontdir}/${font}/)
+	$(rm -rf "${default}/NerdFonts")
 
 done
 
